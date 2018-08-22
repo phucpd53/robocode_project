@@ -30,6 +30,12 @@ public class Dancer {
 			_robot.setAhead(MOVE_AMOUNT * moveDirection);
 		}
 	}
+	public void dodge(){
+		_robot.setTurnRight(Utils.normalRelativeAngleDegrees(_robot.enemy.getBearing() + 90 + (20 * moveDirection)));
+//		moveDirection *= -1;
+		_robot.setAhead(25 * moveDirection);
+	}
+		
 	public void reserve(){
 		moveDirection *= -1;
 	}

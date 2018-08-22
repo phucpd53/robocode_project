@@ -1,7 +1,7 @@
 package cs.shoot;
 
 public class Intercept {
-	public double ROBOT_RADIUS = 100;
+	public double ROBOT_RADIUS = 1000;
     public Coordinate impactPoint = new Coordinate();
     public double bulletHeading_deg;
     
@@ -49,7 +49,7 @@ public class Intercept {
         double dX,dY;
         
         // Start with initial guesses at 10 and 20 ticks
-        impactTime = getImpactTime(5, 10, 0.01); 
+        impactTime = getImpactTime(2, 5, 0.001); 
         impactPoint = getEstimatedPosition(impactTime);
         
         dX = (impactPoint.x - bulletStartingPoint.x);

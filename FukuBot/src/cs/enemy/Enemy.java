@@ -1,13 +1,17 @@
 package cs.enemy;
-import robocode.ScannedRobotEvent;
+import robocode.*;
+import cs.FukuBot;
 public class Enemy {
 	double bearing;
 	double distance;
+	double pre_energy;
 	double energy;
 	double heading;
 	double velocity;
 	String name;
 	long time;
+	
+	private FukuBot _robot;
 	
 	public double getBearing(){
 		return bearing;		
@@ -33,6 +37,7 @@ public class Enemy {
 	public void update(ScannedRobotEvent bot){
 		bearing = bot.getBearing();
 		distance = bot.getDistance();
+		pre_energy = energy;
 		energy = bot.getEnergy();
 		heading = bot.getHeading();
 		velocity = bot.getVelocity();
@@ -55,7 +60,14 @@ public class Enemy {
 			return false;
 	}
 	
-	public Enemy(){
+	public Enemy(FukuBot robot){
+		_robot = robot;
+		_robot.addCustomEvent(new Condition("enemy-fired"){
+			public boolean test(){
+				double changeInEnergy = pre_energy - energy;
+				return (changeInEnergy > 0 && changeInEnergy <= 3);
+			}
+		});
 		reset();
 	}
 }

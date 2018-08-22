@@ -22,7 +22,7 @@ public class FukuBot extends AdvancedRobot {
 		while(true)
 		{
 //			_shooter.execute();
-			_dancer.execute();
+//			_dancer.execute();
 			if (getTime() != enemy.getTime()){
 				_scanner.execute();
 			}
@@ -55,7 +55,7 @@ public class FukuBot extends AdvancedRobot {
 		}
 		if (enemy == null)
 		{
-			enemy = new Enemy();
+			enemy = new Enemy(this);
 		}
 	}
 	public void onScannedRobot(ScannedRobotEvent e)
@@ -70,7 +70,10 @@ public class FukuBot extends AdvancedRobot {
 		if (e.getCondition().getName().equals("too_close_to_walls"))
 		{
 			_dancer.reserve();
-			setAhead(50);
+		}
+		if (e.getCondition().getName().equals("enemy-fired"))
+		{
+			_dancer.dodge();
 		}
 	}
 }
